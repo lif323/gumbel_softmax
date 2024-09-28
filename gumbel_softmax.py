@@ -36,15 +36,12 @@ x = torch.log(x_prob)
 cum_y = 0
 cum_y_offical = 0
 print("original prob.", x_prob)
-total = 10000
-temperature = 1e-10
-is_hard = False
+total = 100000
+temperature = 1
+is_hard = True
 for i in range(total):
     y = gumbel_softmax(x, temperature=temperature, hard=is_hard)
-    print(y)
     y_o = F.gumbel_softmax(x, tau=temperature, hard=is_hard)
-    print(y_o)
-    os._exit(0)
     cum_y = cum_y + y
     cum_y_offical = cum_y_offical + y_o
 print("self   :\n", cum_y / total)
